@@ -1,21 +1,22 @@
 type proposition = Universelle | Particuliere;;
+
 type qualite = Affirmative | Negative;;
 
 type figure = | Figure1 | Figure2 | Figure3 | Figure4;;
 
 type syllogisme = {
- u1 : bool;
- u2 : bool;
- uc : bool;
- a1 : bool;
- a2 : bool;
- ac : bool;
- s : bool;
- p : bool;
-}
+                    u1 : bool;
+                    u2 : bool;
+                    uc : bool;
+                    a1 : bool;
+                    a2 : bool;
+                    ac : bool;
+                    s : bool;
+                    p : bool;
+                  }
 ;;
 
-let create_syllogisme (u1 u2 uc a1 a2 ac s p) : syllogisme = {
+let create_syllogisme (u1 u2 uc a1 a2 ac s p) : syllogisme = {   (*revoir la synthaxe de cette fonction*)
   u1 = u1;
   u2 = u2;
   uc = uc;
@@ -27,6 +28,7 @@ let create_syllogisme (u1 u2 uc a1 a2 ac s p) : syllogisme = {
 }
 ;;
 
+(*
 let determine_type_proposition (u, a : bool * bool) : proposition =
   if u && a then Universelle
   else if not u && not a then Particuliere
@@ -40,6 +42,7 @@ let determine_figure (s, p : bool * bool) : figure =
   else if not s && not p then Figure4
   else failwith "Combination is invalid"
 ;;
+*)
 
 (* Question 1 *)
 let z = create_syllogism(true, false, true, true, false, true, false, true);;
