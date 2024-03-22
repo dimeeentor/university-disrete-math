@@ -3,18 +3,13 @@ type qualite = Affirmative | Negative;;
 
 type figure = | Figure1 | Figure2 | Figure3 | Figure4;;
 
-type bool_or_proposition =
- | Bool of bool
- | Proposition of proposition
-;;
-
 type syllogisme = {
- u1 : bool_or_proposition;
- u2 : bool_or_proposition;
- uc : bool_or_proposition;
- a1 : bool_or_proposition;
- a2 : bool_or_proposition;
- ac : bool_or_proposition;
+ u1 : bool;
+ u2 : bool;
+ uc : bool;
+ a1 : bool;
+ a2 : bool;
+ ac : bool;
  s : bool;
  p : bool;
 }
