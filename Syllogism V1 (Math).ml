@@ -48,39 +48,54 @@ let determine_figure (s, p : bool * bool) : figure =
 let z = create_syllogism(true, false, true, true, false, true, false, true);;
 
 (*  Si deux prémisses sont affirmatives, alors la conclusion doit être affirmative *)
-let rmt (z : syllogisme) : bool = (z.a1 && z.a2) = z.ac;;
+let rmt (z : syllogisme) : bool = (z.u1 || z.u2) = z.ac;;
 
 (* Si une prémisse est négative, alors la conclusion doit être négative *)
-let rlh (z : syllogisme) : bool =
-  not z.a1 || not z.a2 = not z.ac
+let rlh (z: syllogism) : bool =
+  if z.s && z.p then
+    z.uc
+  else
+    true
 ;;
 
 (* Si la conclusion est négative, alors les deux prémisses doivent être négatives *)
 let rnn (z : syllogisme) : bool =
-  not z.ac = not a.a1 && not a.a2
+  not z.ac = (not a.a1 && not a.a2)
 ;;
 
 (* Si une prémisse est négative, alors l'autre prémisse et la conclusion doivent être négatives *)
 let rn (z : syllogisme) : bool =
-    z.a1 = false && z.a2 = false && z.ac = false
-(*   not z.a1 = not z.a2 && not z.ac && not z.a2 = not z.a1 && not z.ac *)
+  if not z.u1 || not z.u2 then
+    false
+  else if not z.uc then
+    true
+  else
+    false
 ;;
 
 (* Si une prémisse est affirmative, alors l'autre prémisse et la conclusion doivent être affirmatives *)
 let raa (z : syllogisme) : bool =
-  z.a1 = z.a2 && z.ac && z.a2 = p1 && z.ac
- (* p1 = true && p2 = true && pc = true *)
+  not (z.a1 && z.a2)
 ;;
 
-(* TODO: Re-do this function *)
 (* Si une prémisse est particulière, alors la conclusion doit être particulière *)
 let rpp (z : syllogisme) : bool =
-    (z.a1 = Particuliere || z.a2 = Particuliere) && z.ac = Particuliere
+  not (z.u2 && z.u1)
 ;;
 
 (*  Si une prémisse est universelle, alors la conclusion doit être universelle *)
 let rp (z : syllogisme) : bool =
-   (z.u1 || z.u2) && z.uc
+  z.u2 || z.uc
 ;;
 
+
 (* Question 2 *)
+let valide syllogism =
+  rmt syllogism &&
+  rlh syllogism &&
+  rnn syllogism &&
+  rn syllogism &&
+  raa syllogism &&
+  rpp syllogism &&
+  rp syllogism
+;;
